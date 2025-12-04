@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import closeIcon from '/src/images/close_button_hover.png';
 
 export default function Popup({ onClose, title, children }) {
   useEffect(() => {
@@ -13,9 +12,7 @@ export default function Popup({ onClose, title, children }) {
   return (
     <div className={`popup popup_opened ${!title ? 'popup_type_image' : ''}`} onClick={handleOverlayClick}>
       <div className="popup__content">
-        <button className="popup__close" onClick={onClose}>
-          <img src={closeIcon} alt="Cerrar" />
-        </button>
+        <button className="popup__close" onClick={onClose} aria-label="Cerrar"></button>
         {title && <h3 className="popup__title">{title}</h3>}
         {children}
       </div>

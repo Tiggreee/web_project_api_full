@@ -16,7 +16,7 @@ mongoose.connect('mongodb://localhost:27017/aroundb')
     const renata = await User.create({
       name: 'Renata Jasso',
       about: 'Exploradora',
-      avatar: 'https://i.ibb.co/SXf6MCs/renata.jpg',
+      avatar: 'https://i.ibb.co/zh6mBvnx/renata.jpg',
       email: 'renata@example.com',
       password: hashedPassword,
     });
