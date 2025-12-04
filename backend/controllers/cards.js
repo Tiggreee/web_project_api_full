@@ -1,7 +1,7 @@
 const Card = require('../models/card');
 
 const getCards = (req, res, next) => {
-  Card.find({})
+  Card.find({ owner: req.user._id })
     .then((cards) => res.send(cards))
     .catch(next);
 };
