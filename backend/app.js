@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const cors = require('cors');
 const { errors } = require('celebrate');
 const usersRouter = require('./routes/users');
 const cardsRouter = require('./routes/cards');
@@ -14,6 +15,7 @@ const app = express();
 
 mongoose.connect('mongodb://localhost:27017/aroundb');
 
+app.use(cors());
 app.use(express.json());
 app.use(requestLogger);
 
