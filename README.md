@@ -38,6 +38,14 @@ For testing purposes, you can register with:
 
 Or create your own account via the Register page.
 
+### Testing User with Sample Cards
+
+If you want to test the complete functionality including card rendering, likes, and all features, we have a pre-populated user:
+- **Email:** renata@example.com
+- **Password:** renata123
+
+This user includes 6 sample cards to test all the rendering and interaction features.
+
 ## Features
 
 - User registration and login
