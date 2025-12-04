@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import trashIcon from '/src/images/trashbin.png';
+import trashIcon from '../../../../images/trashbin.png';
 import { CurrentUserContext } from '../../../../contexts/CurrentUserContext';
 
 export default function Card({ card, onCardClick, onCardLike, onCardDelete }) {
