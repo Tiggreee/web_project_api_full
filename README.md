@@ -30,6 +30,14 @@ npm run dev
 - Node.js
 - MongoDB running on `mongodb://localhost:27017/aroundb`
 
+## Demo User
+
+For testing purposes, you can register with:
+- **Email:** demo@around.com
+- **Password:** demo123
+
+Or create your own account via the Register page.
+
 ## Features
 
 - User registration and login
