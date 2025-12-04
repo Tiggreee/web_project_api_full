@@ -2,28 +2,29 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 
-const getUsers = (req, res) => {
+const getUsers = (req, res, next) => {
   User.find({})
     .then((users) => res.send(users))
-    .catch(() => res.status(500).send({ message: 'Error del servidor' }));
+    .catch(next);
 };
 
-const getUserById = (req, res) => {
+const getUserById = (req, res, next) => {
   User.findById(req.params.id)
     .orFail()
     .then((user) => res.send(user))
     .catch((err) => {
       if (err.name === 'DocumentNotFoundError') {
-        res.status(404).send({ message: 'Usuario no encontrado' });
+        err.statusCode = 404;
+        err.message = 'Usuario no encontrado';
       } else if (err.name === 'CastError') {
-        res.status(400).send({ message: 'ID de usuario inválido' });
-      } else {
-        res.status(500).send({ message: 'Error del servidor' });
+        err.statusCode = 400;
+        err.message = 'ID de usuario inválido';
       }
+      next(err);
     });
 };
 
-const createUser = (req, res) => {
+const createUser = (req, res, next) => {
   const {
     name, about, avatar, email, password,
   } = req.body;
@@ -39,28 +40,33 @@ const createUser = (req, res) => {
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        res.status(400).send({ message: 'Datos inválidos' });
+        err.statusCode = 400;
+        err.message = 'Datos inválidos';
       } else if (err.code === 11000) {
-        res.status(409).send({ message: 'El email ya existe' });
-      } else {
-        res.status(500).send({ message: 'Error del servidor' });
+        err.statusCode = 409;
+        err.message = 'El email ya existe';
       }
+      next(err);
     });
 };
 
-const login = (req, res) => {
+const login = (req, res, next) => {
   const { email, password } = req.body;
 
   User.findOne({ email }).select('+password')
     .then((user) => {
       if (!user) {
-        return res.status(401).send({ message: 'Email o contraseña incorrectos' });
+        const error = new Error('Email o contraseña incorrectos');
+        error.statusCode = 401;
+        throw error;
       }
 
       return bcrypt.compare(password, user.password)
         .then((matched) => {
           if (!matched) {
-            return res.status(401).send({ message: 'Email o contraseña incorrectos' });
+            const error = new Error('Email o contraseña incorrectos');
+            error.statusCode = 401;
+            throw error;
           }
 
           const token = jwt.sign(
@@ -72,23 +78,23 @@ const login = (req, res) => {
           return res.send({ token });
         });
     })
-    .catch(() => res.status(500).send({ message: 'Error del servidor' }));
+    .catch(next);
 };
 
-const getCurrentUser = (req, res) => {
+const getCurrentUser = (req, res, next) => {
   User.findById(req.user._id)
     .orFail()
     .then((user) => res.send(user))
     .catch((err) => {
       if (err.name === 'DocumentNotFoundError') {
-        res.status(404).send({ message: 'Usuario no encontrado' });
-      } else {
-        res.status(500).send({ message: 'Error del servidor' });
+        err.statusCode = 404;
+        err.message = 'Usuario no encontrado';
       }
+      next(err);
     });
 };
 
-const updateProfile = (req, res) => {
+const updateProfile = (req, res, next) => {
   const { name, about } = req.body;
   User.findByIdAndUpdate(
     req.user._id,
@@ -99,16 +105,17 @@ const updateProfile = (req, res) => {
     .then((user) => res.send(user))
     .catch((err) => {
       if (err.name === 'DocumentNotFoundError') {
-        res.status(404).send({ message: 'Usuario no encontrado' });
+        err.statusCode = 404;
+        err.message = 'Usuario no encontrado';
       } else if (err.name === 'ValidationError') {
-        res.status(400).send({ message: 'Datos inválidos' });
-      } else {
-        res.status(500).send({ message: 'Error del servidor' });
+        err.statusCode = 400;
+        err.message = 'Datos inválidos';
       }
+      next(err);
     });
 };
 
-const updateAvatar = (req, res) => {
+const updateAvatar = (req, res, next) => {
   const { avatar } = req.body;
   User.findByIdAndUpdate(
     req.user._id,
@@ -119,12 +126,13 @@ const updateAvatar = (req, res) => {
     .then((user) => res.send(user))
     .catch((err) => {
       if (err.name === 'DocumentNotFoundError') {
-        res.status(404).send({ message: 'Usuario no encontrado' });
+        err.statusCode = 404;
+        err.message = 'Usuario no encontrado';
       } else if (err.name === 'ValidationError') {
-        res.status(400).send({ message: 'Datos inválidos' });
-      } else {
-        res.status(500).send({ message: 'Error del servidor' });
+        err.statusCode = 400;
+        err.message = 'Datos inválidos';
       }
+      next(err);
     });
 };
 
