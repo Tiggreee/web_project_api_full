@@ -45,7 +45,11 @@ function App() {
       Promise.all([api.getUserInfo(), api.getInitialCards()])
         .then(([userData, cardsData]) => {
           setCurrentUser(userData);
-          setCards(cardsData);
+          const cardsWithLikes = cardsData.map(card => ({
+            ...card,
+            isLiked: card.likes.some(id => id === userData._id)
+          }));
+          setCards(cardsWithLikes);
         })
         .catch((err) => {
           console.error('Error al cargar los datos:', err);
@@ -76,7 +80,11 @@ function App() {
     
     await api.changeLikeCardStatus(card._id, !isLiked)
       .then((newCard) => {
-        setCards((state) => state.map((currentCard) => currentCard._id === card._id ? newCard : currentCard));
+        setCards((state) => state.map((currentCard) => 
+          currentCard._id === card._id 
+            ? { ...newCard, isLiked: newCard.likes.some(id => id === currentUser._id) }
+            : currentCard
+        ));
       })
       .catch((error) => console.error(error));
   };
@@ -92,7 +100,11 @@ function App() {
   const handleAddPlaceSubmit = (cardData) => {
     api.addCard(cardData)
       .then((newCard) => {
-        setCards([newCard, ...cards]);
+        const cardWithLike = {
+          ...newCard,
+          isLiked: newCard.likes.some(id => id === currentUser._id)
+        };
+        setCards([cardWithLike, ...cards]);
         handleClosePopup();
       })
       .catch((error) => console.error(error));
