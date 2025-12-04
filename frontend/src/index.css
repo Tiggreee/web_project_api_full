@@ -731,14 +731,17 @@ body::before {
 }
 
 .popup__close {
+  background: transparent url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTI4LjU2NTUgNi4wMzA3M0wyNi45NjQ0IDQuNDE5NjJMMTYgMTUuMzg0MUw1LjAzNTYzIDQuNDE5NjJMMy40MzQ1MiAyLjAzMDczTDE0LjM5ODkgMTdMMy40MzQ1MiAyNy45Njk0TDUuMDM1NjMgMjkuNTgwNUwxNiAxOC42MTU5TDI2Ljk2NDQgMjkuNTgwNUwyOC41NjU1IDI3Ljk2OTRMMTcuNjAxMSAxN0wyOC41NjU1IDYuMDMwNzNaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4K) center no-repeat;
+  width: 32px;
+  height: 32px;
   position: absolute;
   top: -25px;
   right: -25px;
-  background: transparent;
   border: none;
   cursor: pointer;
-  z-index: 10;
   padding: 0;
+  z-index: 10;
+  transition: opacity 0.2s ease-in-out;
 }
 
 .popup__close:hover {
@@ -747,10 +750,7 @@ body::before {
 }
 
 .popup__close img {
-  width: 32px;
-  height: 32px;
-  display: block;
-  transition: all 0.2s ease;
+  display: none;
 }
 
 .popup__title {
