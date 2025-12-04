@@ -1343,22 +1343,6 @@ body::before {
   max-height: 75vh;
 }
 
-.popup__close {
-  background: transparent url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTI4LjU2NTUgNi4wMzA3M0wyNi45NjQ0IDQuNDE5NjJMMTYgMTUuMzg0MUw1LjAzNTYzIDQuNDE5NjJMMy40MzQ1MiA6LjAzMDczTDE0LjM5ODkgMTdMMy40MzQ1MiAyNy45Njk0TDUuMDM1NjMgMjkuNTgwNUwxNiAxOC42MTU5TDI2Ljk2NDQgMjkuNTgwNUwyOC41NjU1IDI3Ljk2OTRMMTcuNjAxMSAxN0wyOC41NjU1IDYuMDMwNzNaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4K) center no-repeat;
-  width: 32px;
-  height: 32px;
-  position: absolute;
-  top: -40px;
-  right: -40px;
-  border: none;
-  cursor: pointer;
-  transition: opacity 0.2s ease-in-out;
-}
-
-.popup__close:hover {
-  opacity: 0.6;
-}
-
 .popup__title {
   font-weight: 900;
   font-size: 24px;
