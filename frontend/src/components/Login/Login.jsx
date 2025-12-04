@@ -22,12 +22,13 @@ export default function Login({ onLogin }) {
         if (data.token) {
           localStorage.setItem('jwt', data.token);
           setFormData({ email: '', password: '' });
-          onLogin();
+          onLogin(true);
           navigate('/');
         }
       })
       .catch((err) => {
         console.error('Error al iniciar sesión:', err);
+        onLogin(false, 'Usuario o contraseña incorrectos');
       })
       .finally(() => {
         setIsSubmitting(false);

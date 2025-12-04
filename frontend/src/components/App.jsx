@@ -120,8 +120,16 @@ function App() {
     setPopup(null);
   };
 
-  const handleLogin = () => {
-    setLoggedIn(true);
+  const handleLogin = (isSuccess, message) => {
+    if (isSuccess) {
+      setLoggedIn(true);
+    } else {
+      setTooltipInfo({
+        isOpen: true,
+        isSuccess: false,
+        message: message || 'Uy, algo salió mal. Por favor, inténtalo de nuevo.'
+      });
+    }
   };
 
   const handleLogout = () => {
