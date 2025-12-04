@@ -1,0 +1,35 @@
+{
+  "name": "around-api",
+  "version": "1.0.0",
+  "description": "Backend API for Around project with authentication",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "lint": "npx eslint ."
+  },
+  "keywords": [
+    "express",
+    "node",
+    "backend",
+    "api",
+    "authentication",
+    "jwt"
+  ],
+  "author": "TigreStack",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^8.56.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.32.0",
+    "nodemon": "^3.1.10"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.19.3",
+    "validator": "^13.12.0"
+  }
+}
