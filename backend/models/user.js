@@ -19,7 +19,7 @@ const userSchema = new mongoose.Schema({
     default: 'https://practicum-content.s3.us-west-1.amazonaws.com/resources/moved_avatar_1604080799.jpg',
     validate: {
       validator(v) {
-        return /^https?:\/\/(www\.)?[a-zA-Z0-9-]+\.[a-zA-Z]{2,}([a-zA-Z0-9-._~:/?#[\]@!$&'()*+,;=]*)?$/.test(v);
+        return validator.isURL(v);
       },
       message: 'Debe ser una URL válida',
     },
