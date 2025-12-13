@@ -4,8 +4,6 @@ const User = require('../models/user');
 
 const { JWT_SECRET = 'dev-secret' } = process.env;
 
-const { JWT_SECRET = 'dev-secret' } = process.env;
-
 const getUsers = (req, res, next) => {
   User.find({})
     .then((users) => res.send(users))
@@ -46,6 +44,7 @@ const createUser = (req, res, next) => {
       if (err.name === 'ValidationError') {
         err.statusCode = 400;
         err.message = 'Datos inválidos';
+
       } else if (err.code === 11000) {
         err.statusCode = 409;
         err.message = 'El email ya existe';
