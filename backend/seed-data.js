@@ -60,7 +60,7 @@ mongoose.connect('mongodb://localhost:27017/aroundb')
     await Card.insertMany(cards);
     console.log('6 tarjetas creadas para Renata');
 
-    console.log('\n✅ Datos de prueba creados exitosamente!');
+    console.log('\nDatos de prueba creados exitosamente');
     console.log('Email: renata@example.com');
     console.log('Password: renata123');
 

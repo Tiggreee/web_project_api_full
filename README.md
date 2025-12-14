@@ -30,21 +30,20 @@ npm run dev
 - Node.js
 - MongoDB running on `mongodb://localhost:27017/aroundb`
 
-## Demo User
+## Test Users
 
-For testing purposes, you can register with:
-- **Email:** demo@around.com
-- **Password:** demo123
+To populate the database with test users and sample data, run the seed script:
 
-Or create your own account via the Register page.
+```bash
+cd backend
+node seed-data.js
+```
 
-### Testing User with Sample Cards
+This creates two test accounts:
+- demo@around.com / demo123
+- renata@example.com / renata123
 
-If you want to test the complete functionality including card rendering, likes, and all features, we have a pre-populated user:
-- **Email:** renata@example.com
-- **Password:** renata123
-
-This user includes 6 sample cards to test all the rendering and interaction features.
+The renata account includes 6 sample cards for testing.
 
 ## Deployment
 
