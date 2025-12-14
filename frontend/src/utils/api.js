@@ -85,7 +85,9 @@ class Api {
 }
 
 const api = new Api({
-  baseUrl: 'http://localhost:3000',
+  baseUrl: process.env.NODE_ENV === 'production' 
+    ? 'https://tigre-around.duckdns.org/api'
+    : 'http://localhost:3000',
 });
 
 export default api;

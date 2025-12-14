@@ -50,8 +50,8 @@ This user includes 6 sample cards to test all the rendering and interaction feat
 
 ### Production Server
 
-- **Frontend:** [Coming Soon - Add your domain here]
-- **Backend API:** [Coming Soon - Add your API domain here]
+- **Frontend:** https://tigre-around.duckdns.org
+- **Backend API:** https://tigre-around.duckdns.org/api
 
 See [DEPLOYMENT.md](DEPLOYMENT.md) for complete deployment instructions.
 
