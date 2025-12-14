@@ -48,16 +48,16 @@ const createUser = (req, res, next) => {
       delete userObject.password;
       res.status(201).send(userObject);
     })
-    .catch((err) => {
-      if (err.name === 'ValidationError') {
-        err.statusCode = 400;
-        err.message = 'Datos inválidos';
+    .catch((err) => handleUserError(err, next));
+};
 
-      } else if (err.code === 11000) {
-        err.statusCode = 409;
-        err.message = 'El email ya existe';
-      }
-      next(err);handleUserError(err, next)   const error = new Error('Email o contraseña incorrectos');
+const login = (req, res, next) => {
+  const { email, password } = req.body;
+
+  User.findOne({ email }).select('+password')
+    .then((user) => {
+      if (!user) {
+        const error = new Error('Email o contraseña incorrectos');
         error.statusCode = 401;
         throw error;
       }
@@ -86,25 +86,19 @@ const getCurrentUser = (req, res, next) => {
   User.findById(req.user._id)
     .orFail()
     .then((user) => res.send(user))
-    .catch((err) => {
-      if (err.name === 'DocumentNotFoundError') {
-        err.statusCode = 404;
-        err.message = 'Usuario no encontrado';
-      }
-      next(err);
-    });
+    .catch((err) => handleUserError(err, next));
 };
 
 const updateProfile = (req, res, next) => {
-  const { name, abouhandleUserError(err, next)orFail()
+  const { name, about } = req.body;
+  User.findByIdAndUpdate(
+    req.user._id,
+    { name, about },
+    { new: true, runValidators: true },
+  )
+    .orFail()
     .then((user) => res.send(user))
-    .catch((err) => {
-      if (err.name === 'DocumentNotFoundError') {
-        err.statusCode = 404;
-        err.message = 'Usuario no encontrado';
-      } else if (err.name === 'ValidationError') {
-        err.statusCode = 400;
-        err.message handleUserError(err, next));
+    .catch((err) => handleUserError(err, next));
 };
 
 const updateAvatar = (req, res, next) => {
@@ -116,7 +110,13 @@ const updateAvatar = (req, res, next) => {
   )
     .orFail()
     .then((user) => res.send(user))
-    .catch((err) => handleUserError(err, next)ateUser,
+    .catch((err) => handleUserError(err, next));
+};
+
+module.exports = {
+  getUsers,
+  getUserById,
+  createUser,
   login,
   getCurrentUser,
   updateProfile,
