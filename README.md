@@ -46,6 +46,15 @@ If you want to test the complete functionality including card rendering, likes, 
 
 This user includes 6 sample cards to test all the rendering and interaction features.
 
+## Deployment
+
+### Production Server
+
+- **Frontend:** [Coming Soon - Add your domain here]
+- **Backend API:** [Coming Soon - Add your API domain here]
+
+See [DEPLOYMENT.md](DEPLOYMENT.md) for complete deployment instructions.
+
 ## Features
 
 - User registration and login
@@ -54,3 +63,9 @@ This user includes 6 sample cards to test all the rendering and interaction feat
 - User profiles
 - Card management (CRUD)
 - Like functionality
+- Centralized error handling
+- Request/Error logging
+- Input validation with Celebrate
+- Password hashing with bcrypt
+- Auto-restart with PM2
+- HTTPS with SSL certificates
