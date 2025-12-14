@@ -4,6 +4,23 @@ const User = require('../models/user');
 
 const { JWT_SECRET = 'dev-secret' } = process.env;
 
+const handleUserError = (err, next) => {
+  if (err.name === 'DocumentNotFoundError') {
+    err.statusCode = 404;
+    err.message = 'Usuario no encontrado';
+  } else if (err.name === 'CastError') {
+    err.statusCode = 400;
+    err.message = 'ID de usuario inválido';
+  } else if (err.name === 'ValidationError') {
+    err.statusCode = 400;
+    err.message = 'Datos inválidos';
+  } else if (err.code === 11000) {
+    err.statusCode = 409;
+    err.message = 'El email ya existe';
+  }
+  next(err);
+};
+
 const getUsers = (req, res, next) => {
   User.find({})
     .then((users) => res.send(users))
@@ -14,16 +31,7 @@ const getUserById = (req, res, next) => {
   User.findById(req.params.id)
     .orFail()
     .then((user) => res.send(user))
-    .catch((err) => {
-      if (err.name === 'DocumentNotFoundError') {
-        err.statusCode = 404;
-        err.message = 'Usuario no encontrado';
-      } else if (err.name === 'CastError') {
-        err.statusCode = 400;
-        err.message = 'ID de usuario inválido';
-      }
-      next(err);
-    });
+    .catch((err) => handleUserError(err, next));
 };
 
 const createUser = (req, res, next) => {
@@ -49,17 +57,7 @@ const createUser = (req, res, next) => {
         err.statusCode = 409;
         err.message = 'El email ya existe';
       }
-      next(err);
-    });
-};
-
-const login = (req, res, next) => {
-  const { email, password } = req.body;
-
-  User.findOne({ email }).select('+password')
-    .then((user) => {
-      if (!user) {
-        const error = new Error('Email o contraseña incorrectos');
+      next(err);handleUserError(err, next)   const error = new Error('Email o contraseña incorrectos');
         error.statusCode = 401;
         throw error;
       }
@@ -98,13 +96,7 @@ const getCurrentUser = (req, res, next) => {
 };
 
 const updateProfile = (req, res, next) => {
-  const { name, about } = req.body;
-  User.findByIdAndUpdate(
-    req.user._id,
-    { name, about },
-    { new: true, runValidators: true },
-  )
-    .orFail()
+  const { name, abouhandleUserError(err, next)orFail()
     .then((user) => res.send(user))
     .catch((err) => {
       if (err.name === 'DocumentNotFoundError') {
@@ -112,10 +104,7 @@ const updateProfile = (req, res, next) => {
         err.message = 'Usuario no encontrado';
       } else if (err.name === 'ValidationError') {
         err.statusCode = 400;
-        err.message = 'Datos inválidos';
-      }
-      next(err);
-    });
+        err.message handleUserError(err, next));
 };
 
 const updateAvatar = (req, res, next) => {
@@ -127,22 +116,7 @@ const updateAvatar = (req, res, next) => {
   )
     .orFail()
     .then((user) => res.send(user))
-    .catch((err) => {
-      if (err.name === 'DocumentNotFoundError') {
-        err.statusCode = 404;
-        err.message = 'Usuario no encontrado';
-      } else if (err.name === 'ValidationError') {
-        err.statusCode = 400;
-        err.message = 'Datos inválidos';
-      }
-      next(err);
-    });
-};
-
-module.exports = {
-  getUsers,
-  getUserById,
-  createUser,
+    .catch((err) => handleUserError(err, next)ateUser,
   login,
   getCurrentUser,
   updateProfile,
