@@ -52,8 +52,6 @@ The renata account includes 6 sample cards for testing.
 - **Frontend:** https://tigre-around.duckdns.org
 - **Backend API:** https://tigre-around.duckdns.org/api
 
-See [DEPLOYMENT.md](DEPLOYMENT.md) for complete deployment instructions.
-
 ## Features
 
 - User registration and login
