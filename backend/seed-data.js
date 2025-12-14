@@ -7,21 +7,31 @@ mongoose.connect('mongodb://localhost:27017/aroundb')
   .then(async () => {
     console.log('Conectado a MongoDB');
 
-    // Limpiar datos existentes de Renata
+    await User.deleteOne({ email: 'demo@around.com' });
     await User.deleteOne({ email: 'renata@example.com' });
     await Card.deleteMany({ name: { $in: ['Valle de Yosemite', 'Lago Louise', 'Montañas Calvas', 'Latemar', 'Parque Nacional de la Vanoise', 'Lago di Braies'] } });
 
-    // Crear usuario Renata
-    const hashedPassword = await bcrypt.hash('renata123', 10);
+    const demoPassword = await bcrypt.hash('demo123', 10);
+    await User.create({
+      name: 'Demo User',
+      about: 'Test account',
+      avatar: 'https://practicum-content.s3.us-west-1.amazonaws.com/resources/moved_avatar_1604080799.jpg',
+      email: 'demo@around.com',
+      password: demoPassword,
+    });
+
+    console.log('Usuario demo creado: demo@around.com');
+
+    const renataPassword = await bcrypt.hash('renata123', 10);
     const renata = await User.create({
       name: 'Renata Jasso',
       about: 'Exploradora',
       avatar: 'https://i.ibb.co/zh6mBvnx/renata.jpg',
       email: 'renata@example.com',
-      password: hashedPassword,
+      password: renataPassword,
     });
 
-    console.log('Usuario Renata creado:', renata.email);
+    console.log('Usuario Renata creado: renata@example.com');
 
     // Crear 6 tarjetas
     const cards = [
@@ -61,8 +71,9 @@ mongoose.connect('mongodb://localhost:27017/aroundb')
     console.log('6 tarjetas creadas para Renata');
 
     console.log('\nDatos de prueba creados exitosamente');
-    console.log('Email: renata@example.com');
-    console.log('Password: renata123');
+    console.log('Usuarios disponibles:');
+    console.log('- demo@around.com / demo123');
+    console.log('- renata@example.com / renata123');
 
     await mongoose.connection.close();
     process.exit(0);
