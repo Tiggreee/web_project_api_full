@@ -46,6 +46,7 @@ export default function Login({ onLogin }) {
           placeholder="Correo electrónico"
           value={formData.email}
           onChange={handleChange}
+          autoComplete="email"
           required
         />
         <input
@@ -55,6 +56,7 @@ export default function Login({ onLogin }) {
           placeholder="Contraseña"
           value={formData.password}
           onChange={handleChange}
+          autoComplete="current-password"
           required
         />
         <button 

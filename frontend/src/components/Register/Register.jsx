@@ -45,6 +45,7 @@ export default function Register({ onRegister }) {
           placeholder="Correo electrónico"
           value={formData.email}
           onChange={handleChange}
+          autoComplete="email"
           required
         />
         <input
@@ -54,6 +55,7 @@ export default function Register({ onRegister }) {
           placeholder="Contraseña"
           value={formData.password}
           onChange={handleChange}
+          autoComplete="new-password"
           required
         />
         <button 
